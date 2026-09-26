@@ -9,7 +9,6 @@ print(collections)
 
 from app.vectorstore.qdrant import QdrantService
 
-
 qdrant_service = QdrantService()
 
 qdrant_service.create_collection()

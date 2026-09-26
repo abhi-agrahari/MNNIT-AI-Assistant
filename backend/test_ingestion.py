@@ -3,7 +3,7 @@ from app.ingestion.chunker import chunk_text
 from app.ingestion.models import DocumentChunk
 
 
-pdf_path = "../data/colleges/mnnit/hostel-brochure/hostel Rules.pdf"
+pdf_path = "data/colleges/MNNIT/hostel-brochure/Hostel Rules.pdf"
 
 college_id = "mnnit"
 document_id = "hostel-rules"
