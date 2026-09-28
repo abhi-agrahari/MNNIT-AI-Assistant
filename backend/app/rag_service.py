@@ -2,11 +2,9 @@ from app.retrieval.retriever import Retriever
 from app.generation.prompt_builder import PromptBuilder
 from app.generation.llm import LLMService
 
-
 class RAGService:
 
     def __init__(self):
-
         self.retriever = Retriever()
         self.prompt_builder = PromptBuilder()
         self.llm = LLMService()
@@ -30,7 +28,23 @@ class RAGService:
             results=results
         )
 
-        # generate answer using the LLM
+        # generate answer using LLM
         answer = self.llm.generate(prompt)
 
-        return answer
+        # Extract source information
+        sources = []
+
+        for result in results:
+
+            payload = result.payload
+
+            sources.append({
+                "document_id": payload["document_id"],
+                "page_number": payload["page_number"],
+                "chunk_index": payload["chunk_index"]
+            })
+
+        return {
+            "answer": answer,
+            "sources": sources
+        }

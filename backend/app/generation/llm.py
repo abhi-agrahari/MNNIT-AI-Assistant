@@ -1,32 +1,35 @@
 import os
 
 from dotenv import load_dotenv
-from google import genai
-
+from groq import Groq
 
 load_dotenv()
-
 
 class LLMService:
 
     def __init__(self):
 
-        api_key = os.getenv("GEMINI_API_KEY")
+        api_key = os.getenv("GROQ_API_KEY")
 
         if not api_key:
             raise ValueError(
-                "GEMINI_API_KEY is not set"
+                "GROQ_API_KEY is not set"
             )
 
-        self.client = genai.Client(
+        self.client = Groq(
             api_key=api_key
         )
 
     def generate(self, prompt: str) -> str:
 
-        response = self.client.models.generate_content(
-            model="gemini-3.5-flash-lite",
-            contents=prompt
+        response = self.client.chat.completions.create(
+            model="qwen/qwen3.8-27b",
+            messages=[
+                {
+                    "role": "user",
+                    "content": prompt
+                }
+            ]
         )
 
-        return response.text
+        return response.choices[0].message.content

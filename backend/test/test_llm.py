@@ -1,8 +1,6 @@
 from app.generation.llm import LLMService
 
-
 llm = LLMService()
-
 
 prompt = """
 You are an assistant for MNNIT Allahabad.
