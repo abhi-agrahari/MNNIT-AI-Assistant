@@ -2,7 +2,7 @@ from sentence_transformers import SentenceTransformer
 
 class EmbeddingService:
 
-    def __init__(self, model_name: str = "BAAI/bge-small-en"):
+    def __init__(self, model_name: str = "D:/College-RAG/models/bge-small-en-v1.5"):
         self.model = SentenceTransformer(model_name)
 
     def embed_text(self, text: str) -> list[float]:

@@ -10,6 +10,9 @@ from app.vectorstore.qdrant import QdrantService
 
 class Retriever:
 
+    # minimum similarity required for a result
+    SCORE_THRESHOLD = 0.70
+
     def __init__(self):
         self.embedding_service = EmbeddingService()
         self.qdrant_service = QdrantService()
@@ -44,4 +47,11 @@ class Retriever:
             with_payload=True
         )
 
-        return results.points
+        # filter results that are actually similar
+        filtered_results = [
+            result
+            for result in results.points
+            if result.score >= self.SCORE_THRESHOLD
+        ]
+
+        return filtered_results
